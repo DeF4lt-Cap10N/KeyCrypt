@@ -8,7 +8,7 @@ const Manager = () => {
 
    const [passwordArray, setpasswordArray] = useState([]);
 
-
+  //adding password to in array from  user input (localstroage )  
    useEffect(() => {
       let passwords = localStorage.getItem("passwords");
       if (passwords) {
@@ -16,6 +16,8 @@ const Manager = () => {
       }
    }, [])
 
+
+   // eye function (closed and open)
    function showPassword() {
       if (icon === "") {
          setIcon("hover-cross");
@@ -25,12 +27,14 @@ const Manager = () => {
       }
    }
 
+  // save the password from array to localstorage
    const savePassword = () => {
       setpasswordArray([...passwordArray, form]);
       localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
       console.log([...passwordArray, form]);
    }
-
+   
+   // handleing the user input 
    const handleChange = (e) => {
       setform({ ...form, [e.target.name]: e.target.value })
    }
@@ -39,10 +43,13 @@ const Manager = () => {
       <>
          <div className='p-24  '>
             <h1 className='text-center text-4xl font-bold '>PasswordOp</h1>
+            
             <div className='flex flex-col p-4 gap-5 outline-none'>
                <input name='site' value={form.site} onChange={handleChange} placeholder='Enter website URL' className='rounded-full h-12 bg-gray-600 p-5 outline-none ' type="text" />
+
                <div className='md:flex gap-5 '>
                   <input name='username' value={form.username} onChange={handleChange} placeholder='Enter Username' className='rounded-full h-12 bg-gray-600 p-3 mt-3 outline-none w-5/6' type="text" />
+
                   <div className="relative w-auto ">
                      <input name='password'
                         value={form.password} onChange={handleChange}
