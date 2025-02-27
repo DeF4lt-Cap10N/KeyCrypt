@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 
 const Manager = () => {
 
-   const [icon, setIcon] = useState("");
+   const [icon, setIcon] = useState("hover-cross");
    const [form, setform] = useState({ site: "", username: "", password: "" });
-
    const [passwordArray, setpasswordArray] = useState([]);
+   const [passType, setPassType] = useState("password");
 
-  //adding password to in array from  user input (localstroage )  
+   //adding password to in array from  user input (localstroage )  
    useEffect(() => {
       let passwords = localStorage.getItem("passwords");
       if (passwords) {
@@ -18,22 +18,27 @@ const Manager = () => {
 
 
    // eye function (closed and open)
-   function showPassword() {
-      if (icon === "") {
-         setIcon("hover-cross");
+   const showPassword = () => {
+
+      if (icon === "hover-cross") {
+         setIcon("");
+         setPassType("text");
       }
       else {
-         setIcon("");
+         setIcon("hover-cross");
+         setPassType("password");
       }
+
+
    }
 
-  // save the password from array to localstorage
+   // save the password from array to localstorage
    const savePassword = () => {
       setpasswordArray([...passwordArray, form]);
       localStorage.setItem("passwords", JSON.stringify([...passwordArray, form]));
       console.log([...passwordArray, form]);
    }
-   
+
    // handleing the user input 
    const handleChange = (e) => {
       setform({ ...form, [e.target.name]: e.target.value })
@@ -43,22 +48,36 @@ const Manager = () => {
       <>
          <div className='p-24  '>
             <h1 className='text-center text-4xl font-bold '>PasswordOp</h1>
-            
+
             <div className='flex flex-col p-4 gap-5 outline-none'>
-               <input name='site' value={form.site} onChange={handleChange} placeholder='Enter website URL' className='rounded-full h-12 bg-gray-600 p-5 outline-none ' type="text" />
+               <input name='site'
+                  value={form.site}
+                  onChange={handleChange}
+                  placeholder='Enter website URL'
+                  className='rounded-full h-12 bg-gray-600 p-5 outline-none '
+                  type="text"
+               />
 
                <div className='md:flex gap-5 '>
-                  <input name='username' value={form.username} onChange={handleChange} placeholder='Enter Username' className='rounded-full h-12 bg-gray-600 p-3 mt-3 outline-none w-5/6' type="text" />
+                  <input
+                     name='username'
+                     value={form.username}
+                     onChange={handleChange}
+                     placeholder='Enter Username'
+                     className='rounded-full h-12 bg-gray-600 p-3 mt-3 outline-none w-5/6' type="text"
+                  />
 
                   <div className="relative w-auto ">
-                     <input name='password'
-                        value={form.password} onChange={handleChange}
+                     <input
+                        name='password'
+                        value={form.password}
+                        onChange={handleChange}
                         placeholder="Enter Password"
                         className="rounded-full h-12 bg-gray-600 p-3 pr-10 mt-3 outline-none "
-                        type="text"
-
+                        type={passType}
                      />
-                     <span onClick={showPassword} className=" absolute md:right-3 md:top-5 left-48 top-5
+                     <span onClick={showPassword}
+                        className=" absolute md:right-3 md:top-5 left-48 top-5
                      cursor-pointer ">
                         <lord-icon
                            src="https://cdn.lordicon.com/dicvhxpz.json"
@@ -86,6 +105,7 @@ const Manager = () => {
 
             <div className='passwords'>
                <h1 className='font-bold text-3xl p-4 '>Save Password</h1>
+               {/* cheack first array is empty or not then show array.value in table */}
                {passwordArray.length == 0 && <div>No Password</div>}
                {passwordArray.length != 0 &&
                   <table className="table-auto w-full rounded-3xl overflow-hidden">
@@ -101,9 +121,40 @@ const Manager = () => {
                            passwordArray.map((item, index) => {
                               return (
                                  <tr key={index}>
-                                    <td className='text-center w-32 py-2'>{item.site}</td >
-                                    <td className='text-center w-32 py-2'>{item.username}</td >
-                                    <td className='text-center w-32 py-2'>{item.password}</td >
+                                    <td onClick={() => { navigator.clipboard.writeText(item.site) }} className=' text-center align-middle w-32  py-2'>
+                                       <span className="flex items-center justify-center gap-2 cursor-pointer">
+                                          {item.site}
+                                          <lord-icon
+                                             src="https://cdn.lordicon.com/jectmwqf.json"
+                                             trigger="loop"
+                                             delay="2000"
+                                             stroke="light"
+                                          ></lord-icon>
+                                       </span>
+                                    </td >
+
+                                    <td onClick={() => { navigator.clipboard.writeText(item.username) }} className=' text-center w-32   py-2'>
+                                       <span className="flex items-center justify-center gap-2 cursor-pointer">
+                                          {item.username}
+                                          <lord-icon
+                                             src="https://cdn.lordicon.com/jectmwqf.json"
+                                             trigger="loop"
+                                             delay="2000"
+                                             stroke="light"
+                                          ></lord-icon>
+                                       </span>
+                                    </td >
+                                    <td onClick={() => { navigator.clipboard.writeText(item.password) }} className=' text-center w-32   py-2'>
+                                       <span className="flex items-center justify-center gap-2 cursor-pointer">
+                                          {item.password}
+                                          <lord-icon
+                                             src="https://cdn.lordicon.com/jectmwqf.json"
+                                             trigger="loop"
+                                             delay="2000"
+                                             stroke="light"
+                                          ></lord-icon>
+                                       </span>
+                                    </td >
                                  </tr>
                               )
                            })
