@@ -1,4 +1,4 @@
-
+import { ToastContainer, toast } from 'react-toastify';
 import React, { useEffect, useState } from 'react'
 
 const Manager = () => {
@@ -46,6 +46,18 @@ const Manager = () => {
 
    return (
       <>
+         <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+         />
          <div className='p-24  '>
             <h1 className='text-center text-4xl font-bold '>PasswordOp</h1>
 
@@ -114,6 +126,7 @@ const Manager = () => {
                            <th className='py-2'>Web URL</th>
                            <th className='py-2'>Username</th>
                            <th className='py-2'>Password</th>
+                           <th className='py-2'>Action</th>
                         </tr>
                      </thead>
                      <tbody className='bg-green-100 text-black'>
@@ -121,7 +134,19 @@ const Manager = () => {
                            passwordArray.map((item, index) => {
                               return (
                                  <tr key={index}>
-                                    <td onClick={() => { navigator.clipboard.writeText(item.site) }} className=' text-center align-middle w-32  py-2'>
+                                    <td
+                                       onClick={() => {
+                                          toast('text copied!', {
+                                             position: "top-right",
+                                             autoClose: 3000,
+                                             hideProgressBar: false,
+                                             closeOnClick: false,
+                                             pauseOnHover: true,
+                                             draggable: true,
+                                             progress: undefined,
+                                             theme: "light",
+                                          }); navigator.clipboard.writeText(item.site)
+                                       }} className=' text-center align-middle w-32  py-2'>
                                        <span className="flex items-center justify-center gap-2 cursor-pointer">
                                           {item.site}
                                           <lord-icon
@@ -133,7 +158,19 @@ const Manager = () => {
                                        </span>
                                     </td >
 
-                                    <td onClick={() => { navigator.clipboard.writeText(item.username) }} className=' text-center w-32   py-2'>
+                                    <td
+                                       onClick={() => {
+                                          toast('text copied!', {
+                                             position: "top-right",
+                                             autoClose: 3000,
+                                             hideProgressBar: false,
+                                             closeOnClick: false,
+                                             pauseOnHover: true,
+                                             draggable: true,
+                                             progress: undefined,
+                                             theme: "light",
+                                          }); navigator.clipboard.writeText(item.username)
+                                       }} className=' text-center w-32   py-2'>
                                        <span className="flex items-center justify-center gap-2 cursor-pointer">
                                           {item.username}
                                           <lord-icon
@@ -144,7 +181,19 @@ const Manager = () => {
                                           ></lord-icon>
                                        </span>
                                     </td >
-                                    <td onClick={() => { navigator.clipboard.writeText(item.password) }} className=' text-center w-32   py-2'>
+                                    <td
+                                       onClick={() => {
+                                          toast('text copied!', {
+                                             position: "top-right",
+                                             autoClose: 3000,
+                                             hideProgressBar: false,
+                                             closeOnClick: false,
+                                             pauseOnHover: true,
+                                             draggable: true,
+                                             progress: undefined,
+                                             theme: "light",
+                                          }); navigator.clipboard.writeText(item.password)
+                                       }} className=' text-center w-32   py-2'>
                                        <span className="flex items-center justify-center gap-2 cursor-pointer">
                                           {item.password}
                                           <lord-icon
@@ -153,6 +202,38 @@ const Manager = () => {
                                              delay="2000"
                                              stroke="light"
                                           ></lord-icon>
+                                       </span>
+                                    </td >
+                                    <td
+                                       onClick={() => {
+                                          toast('item deleted!', {
+                                             position: "top-right",
+                                             autoClose: 3000,
+                                             hideProgressBar: false,
+                                             closeOnClick: false,
+                                             pauseOnHover: true,
+                                             draggable: true,
+                                             progress: undefined,
+                                             theme: "light",
+                                          });
+                                       }}
+                                       className=' text-center w-32   py-2'>
+                                       <span className="flex items-center justify-center gap-2 cursor-pointer">
+                                          <lord-icon
+                                             src="https://cdn.lordicon.com/exymduqj.json"
+                                             trigger="loop"
+                                             delay="1500"
+                                             stroke="light"
+                                             state="in-dynamic"
+                                          >
+                                          </lord-icon>
+                                          <lord-icon
+                                             src="https://cdn.lordicon.com/hwjcdycb.json"
+                                             trigger="loop"
+                                             stroke="light"
+                                             state="morph-trash-out"
+                                          >
+                                          </lord-icon>
                                        </span>
                                     </td >
                                  </tr>
