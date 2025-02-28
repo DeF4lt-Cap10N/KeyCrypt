@@ -35,10 +35,15 @@ const Manager = () => {
 
   // save the password from array to localstorage
   const savePassword = () => {
-    setpasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
-    localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]));
-    // console.log([...passwordArray, form]);
-    setform({ site: "", username: "", password: "" });
+    if (form.site.length > 3 && form.username.length > 3 && form.password.length > 3) {
+      setpasswordArray([...passwordArray, { ...form, id: uuidv4() }]);
+      localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]));
+      // console.log([...passwordArray, form]);
+      setform({ site: "", username: "", password: "" });
+    }else{
+      toast("invalid Input")
+    }
+
   }
 
 
