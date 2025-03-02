@@ -40,7 +40,7 @@ const Manager = () => {
       localStorage.setItem("passwords", JSON.stringify([...passwordArray, { ...form, id: uuidv4() }]));
       // console.log([...passwordArray, form]);
       setform({ site: "", username: "", password: "" });
-    }else{
+    } else {
       toast("invalid Input")
     }
 
@@ -249,6 +249,7 @@ const Manager = () => {
 
                             onClick={() => { deletePassword(item.id) }}
                             className="cursor-pointer">
+
 
                             <lord-icon
                               src="https://cdn.lordicon.com/hwjcdycb.json"
